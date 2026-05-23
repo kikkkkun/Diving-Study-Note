@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diving Study Note - 学科講習 2</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Kiwi Maru & Noto Sans JP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #030712;
+        }
+        .accent-font {
+            font-family: 'Kiwi Maru', serif;
+        }
+        .deep-sea-gradient {
+            background: linear-gradient(180deg, #0f172a 0%, #0c4a6e 40%, #083344 100%);
+        }
+        .bubbles-bg {
+            background-image: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 20%);
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col bubbles-bg">
+
+    <!-- Header -->
+    <header class="deep-sea-gradient text-white py-10 px-4 shadow-2xl relative overflow-hidden border-b border-sky-950">
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <svg class="w-full h-full animate-pulse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#0ea5e9" fill-opacity="0.2" d="M0,96L48,112C96,128,192,160,288,154.7C384,149,480,107,576,96C672,85,768,107,864,128C960,149,1056,171,1152,165.3C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        
+        <div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <span class="bg-sky-500/30 text-sky-300 border border-sky-400/30 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Lesson 2: 学科講習 2</span>
+                <h1 class="text-3xl md:text-5xl font-extrabold mt-2 tracking-tight accent-font text-sky-100">Diving Study Note</h1>
+                <p class="text-sky-300 text-sm mt-1 font-medium">「水中物理（水圧・熱・光）とスーツ・浮力コントロールの科学」</p>
+            </div>
+            
+            <!-- Goal Box (Updated for Black Manta, Whale Shark, etc.) -->
+            <div class="bg-slate-950/70 backdrop-blur-md border border-sky-500/40 rounded-2xl p-4 md:max-w-md shadow-2xl">
+                <div class="flex items-center gap-2 text-amber-300 font-bold text-xs mb-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-bounce" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                    </svg>
+                    <span>マイ・ダイビング目標 🌊📸</span>
+                </div>
+                <p class="text-white text-xs md:text-sm font-semibold accent-font leading-relaxed">
+                    「ブラックマンタを見たい！水中カメラを使いこなして、ジンベエザメ・クジラ・カメ・サメの大群を絶対綺麗に写真に収めたい！」
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-slate-950 border-b border-sky-950 sticky top-0 z-40 shadow-md">
+        <div class="max-w-5xl mx-auto px-4">
+            <nav class="flex space-x-1 md:space-x-2 overflow-x-auto py-3" aria-label="Tabs">
+                <button onclick="switchTab('tab-physics')" id="btn-tab-physics" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 bg-sky-600 text-white">
+                    🌡️ 1. 水中物理（熱と水圧）
+                </button>
+                <button onclick="switchTab('tab-vision')" id="btn-tab-vision" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-sky-400 hover:bg-slate-900">
+                    👁️ 2. 水中視覚（見え方と色彩）
+                </button>
+                <button onclick="switchTab('tab-suits')" id="btn-tab-suits" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-sky-400 hover:bg-slate-900">
+                    🏄‍♂️ 3. スーツと浮力管理
+                </button>
+                <button onclick="switchTab('tab-quiz')" id="btn-tab-quiz" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-sky-400 hover:bg-slate-900">
+                    🧠 4. 暗記確認テスト
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 md:p-6">
+
+        <!-- ================= TAB 1: WATER PHYSICS (HEAT & PRESSURE) ================= -->
+        <section id="tab-physics" class="tab-content space-y-8">
+            
+            <!-- Heat Science Section -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 bg-rose-500/20 text-rose-400 rounded-lg">🔥</span>
+                        <h2 class="text-xl font-bold text-slate-100">熱の伝導科学：水温を甘く見てはいけない理由</h2>
+                    </div>
+                    <span class="text-xs text-rose-400 font-bold bg-rose-950 px-3 py-1 rounded-full border border-rose-900/30 mt-2 md:mt-0">熱の伝わる速さ：陸上の「25倍」</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Sauna vs Hot Water -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-200 mb-3 flex items-center gap-2">
+                                <span class="text-amber-500">💨</span> 気体（サウナ） vs 液体（お湯）の違い
+                            </h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                ノートにメモされた「サウナ」と「熱湯」の対比は、熱の伝わり方の違いを説明する素晴らしい例えです。
+                            </p>
+                            <div class="space-y-3">
+                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+                                        <span>🧖‍♂️ サウナ (気体 / 80〜100℃)</span>
+                                        <span class="text-emerald-400">◯ 5〜10分可能</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-1">気体は熱伝導が遅いため、高温でも短時間なら快適に耐えられます。</p>
+                                </div>
+                                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                                    <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+                                        <span>♨️ 熱湯 (液体 / 80〜100℃)</span>
+                                        <span class="text-rose-400">✕ 入浴不可能</span>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500 mt-1">液体は熱を伝えるスピードが極めて速いため、触れた瞬間に大火傷を負います。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Under-temperature danger -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-200 mb-3 flex items-center gap-2">
+                                <span class="text-sky-400">🥶</span> 10〜15分は平気でも…低体温症の罠
+                            </h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                水中にいるだけで、陸上よりも体温が急速に奪われます。海水温と気温の違いによる体温変化に注意しましょう。
+                            </p>
+                            <div class="grid grid-cols-2 gap-3 text-center text-xs mb-4">
+                                <div class="bg-emerald-950/30 p-3 rounded-xl border border-emerald-900/40">
+                                    <span class="text-[10px] text-emerald-400 block font-bold">陸上気温 25〜28℃</span>
+                                    <span class="text-slate-200 font-bold block mt-1">非常に快適</span>
+                                </div>
+                                <div class="bg-rose-950/30 p-3 rounded-xl border border-rose-900/40">
+                                    <span class="text-[10px] text-rose-400 block font-bold">水中水温 25〜28℃</span>
+                                    <span class="text-slate-200 font-bold block mt-1">30分で極寒</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                <div class="text-xs font-bold text-rose-400 mb-1">🌡️ 危険ライン：体温 35℃以下（低体温症）</div>
+                                <p class="text-[11px] text-slate-400 leading-relaxed">
+                                    最初は「気持ちいい」と感じても、30分も経てば体温は奪われ続け、低体温症（身震い、動作遅延など）のリスクが急上昇します。そのため、水温に関わらず**必ず体を保護するスーツを着用する**のがダイビングの絶対ルールです。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pressure & Boyle's Law Interactive Widget -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 bg-sky-500/20 text-sky-400 rounded-lg">⚓</span>
+                        <h2 class="text-xl font-bold text-slate-100">水圧とボイルの法則 シミュレーター</h2>
+                    </div>
+                    <span class="text-xs text-sky-400 bg-sky-950 px-3 py-1 rounded-full border border-sky-900/30 mt-2 md:mt-0">深さと空気の体積変化の関係</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <!-- Control Slider -->
+                    <div class="md:col-span-5 space-y-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <h3 class="font-bold text-slate-200 text-sm">🎛️ 水深を調節して体積の変化を見る</h3>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            スライダーを動かして、水底へ降りていくときの空気（体積）が水圧によってどのように縮小していくかを確認しましょう。
+                        </p>
+                        
+                        <!-- Slider UI -->
+                        <div class="pt-4 pb-2">
+                            <label for="depth-range" class="block text-xs font-bold text-sky-400 mb-2">水深の選択:</label>
+                            <input type="range" id="depth-range" min="0" max="30" step="10" value="0" oninput="updateBoyleSim(this.value)" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500">
+                            <div class="flex justify-between text-[10px] text-slate-500 font-bold mt-2 px-1">
+                                <span>0m (陸)</span>
+                                <span>10m</span>
+                                <span>20m</span>
+                                <span>30m</span>
+                            </div>
+                        </div>
+
+                        <!-- Info display -->
+                        <div class="bg-slate-950 p-4 rounded-xl space-y-2 border border-slate-800 font-mono text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">現在水深:</span>
+                                <span class="text-sky-400 font-bold" id="sim-depth">0 m</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">水中気圧:</span>
+                                <span class="text-amber-400 font-bold" id="sim-pressure">1 気圧</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-500">空気体積:</span>
+                                <span class="text-emerald-400 font-bold" id="sim-volume">12 L (1/1)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Animation -->
+                    <div class="md:col-span-7 flex flex-col items-center justify-center bg-slate-900/40 border border-slate-800 rounded-2xl p-6 relative min-h-[250px]">
+                        <!-- Visual Container -->
+                        <div class="text-center">
+                            <span class="text-[11px] text-slate-500 block mb-4 font-bold">肺やスーツ内、シリンダーの空気イメージ</span>
+                            
+                            <!-- Bubble Container -->
+                            <div class="relative w-40 h-40 bg-slate-950 rounded-full flex items-center justify-center border-2 border-dashed border-sky-900 mx-auto transition-all duration-300">
+                                <!-- Actual Bubble -->
+                                <div id="sim-bubble" class="bg-gradient-to-tr from-sky-400/80 to-teal-300/40 rounded-full flex items-center justify-center text-slate-950 font-black text-sm shadow-lg transition-all duration-500" style="width: 140px; height: 140px;">
+                                    <span id="bubble-text" class="text-xs">12L (100%)</span>
+                                </div>
+                            </div>
+                            <span class="text-[11px] text-emerald-400 block mt-4 font-bold" id="boyle-status">陸上：いつもの大きさ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ear Equalization & Squeeze notes -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 text-xs leading-relaxed">
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-amber-400 flex items-center gap-1.5 mb-1.5">
+                            👂 耳抜きの絶対鉄則：痛くなる前に！
+                        </h4>
+                        <p class="text-slate-400">
+                            水深10m（2気圧）に下がるだけで体積は半分に潰されます。鼓膜への圧迫に対処するため、**「違和感を感じたらすぐ」**耳抜きをしましょう。一度痛くなってからでは、周囲の組織が固く圧迫されてしまいリカバリー（耳抜き）が全く効かなくなります。
+                        </p>
+                    </div>
+                    <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-sky-400 flex items-center gap-1.5 mb-1.5">
+                            🕴️ ドライスーツのスクイーズ現象
+                        </h4>
+                        <p class="text-slate-400">
+                            ドライスーツは内部に空気の層を作って保温しています。潜行すると水圧で空気の層が押し縮められ、スーツが体をギュッと締め付ける「スクイーズ現象」が発生します。これを防ぐために、ドライスーツには空気を注入して締め付けを解除する給気・排気バルブ機能が付いています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 2: WATER VISION & COLORS ================= -->
+        <section id="tab-vision" class="tab-content space-y-8 hidden">
+            
+            <!-- Underwater Vision Science -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 bg-sky-500/20 text-sky-400 rounded-lg">👁️</span>
+                        <h2 class="text-xl font-bold text-slate-100">水中視覚：光の屈折が生む「目の狂い」と対処法</h2>
+                    </div>
+                    <span class="text-xs text-sky-400">マスクの「空気の層」をとおすことで見える世界</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                    
+                    <!-- 4/3 Rule -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-sky-400 font-extrabold text-[10px] uppercase tracking-wider block">屈折の物理</span>
+                            <h3 class="font-bold text-slate-200 text-sm mt-1 mb-3">🔍 物体が 4/3倍 大きく、近く見える</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                水と空気の密度の違いにより、光がマスクのガラス面で屈折します。そのため水中ではすべての生き物やロープが、陸上よりも**4/3倍大きく、4/3倍近く**に見えます。
+                            </p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-850 text-center mt-4">
+                            <span class="text-slate-500 block text-[10px] font-bold">陸上での見え方</span>
+                            <span class="text-slate-300 font-bold block text-sm">🐋 10m のクジラや大群が...</span>
+                            <span class="text-sky-400 font-black block text-base mt-1">🐋 水中では 約13.3m 相当に見える！</span>
+                        </div>
+                    </div>
+
+                    <!-- Grab Trick -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-amber-400 font-extrabold text-[10px] uppercase tracking-wider block">実践テクニック</span>
+                            <h3 class="font-bold text-slate-200 text-sm mt-1 mb-3">✊ ひっかけるようにつかむコツ</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                実際よりも手前にモノがあるように見えるため、手を伸ばしたときに空振りをしがちです。水中カメラを岩に固定したり、安全ロープを掴む際は、視覚に騙されず**「やや手前からひっかけるように指を曲げてつかむ」**のが失敗しないコツです。
+                            </p>
+                        </div>
+                        <div class="bg-amber-950/10 border border-amber-900/30 p-3.5 rounded-xl text-amber-300 mt-4 leading-relaxed">
+                            <span class="font-bold text-xs block mb-1">💡 カメラ派ダイバーへの恩恵</span>
+                            「意外と目の前を泳いでいる！」と感じるカメやマンタも、この屈折分だけズレがあります。カメラを焦って前に突き出さず、距離感に慣れることが大切です。
+                        </div>
+                    </div>
+
+                    <!-- Camera & Lights -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <span class="text-emerald-400 font-extrabold text-[10px] uppercase tracking-wider block">カメラ撮影と機材</span>
+                            <h3 class="font-bold text-slate-200 text-sm mt-1 mb-3">📸 ワイドな水中ライトを使う理由</h3>
+                            <p class="text-slate-400 leading-relaxed">
+                                水中は陸上に比べて圧倒的に光量が不足し、本来の色味がぼやけます。水中カメラで大きなジンベエザメやブラックマンタ、綺麗なサメの大群を美しく捉えるには、ビームのような鋭いスポットライトではなく、広範囲に光を均一に届ける**「ワイドなライト」**を当てるのがベストです。
+                            </p>
+                        </div>
+                        <div class="bg-slate-950 p-3 rounded-xl border border-slate-850 mt-4 text-center">
+                            <span class="text-emerald-400 font-bold block">ワイドライト ＝ 写真がワイドに美しく撮れる</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Color Absorption Interactive Simulator -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 bg-violet-500/20 text-violet-400 rounded-lg">🌈</span>
+                        <h2 class="text-xl font-bold text-slate-100">水深による「色の消失」と水中ライト効果シミュレーター</h2>
+                    </div>
+                    <span class="text-xs text-violet-400 bg-violet-950 px-3 py-1 rounded-full border border-violet-900/30 mt-2 md:mt-0">最後は「青・紫」が残る色彩の消失現象</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- Controls -->
+                    <div class="md:col-span-5 space-y-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <h3 class="font-bold text-slate-200 text-sm">💡 水中の深さとライト照射をコントロールする</h3>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            水深を深くすると、赤や黄色の光が順に水に吸収され、最後は青や紫の世界に変わります。マンタやカメ、サメの体をリアルに捉えるために、ライトボタンを押して本来の美しい色彩を取り戻してみましょう。
+                        </p>
+
+                        <!-- Depth Controls -->
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-bold text-slate-400">水深を変更:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setWaterDepth(0)" id="btn-depth-0" class="depth-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white text-xs font-bold transition-all">0m (陸上/水面)</button>
+                                <button onclick="setWaterDepth(10)" id="btn-depth-10" class="depth-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-xs font-bold transition-all">10m (赤が消える)</button>
+                                <button onclick="setWaterDepth(20)" id="btn-depth-20" class="depth-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-xs font-bold transition-all">20m (黄色も消える)</button>
+                                <button onclick="setWaterDepth(30)" id="btn-depth-30" class="depth-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-xs font-bold transition-all">30m (紫だけが残る)</button>
+                            </div>
+                        </div>
+
+                        <!-- Light Toggle -->
+                        <div class="pt-2">
+                            <label class="block text-[11px] font-bold text-slate-400 mb-2">水中ライトの照射:</label>
+                            <button onclick="toggleLight()" id="btn-light" class="w-full py-2 px-4 rounded-xl bg-slate-800 text-amber-400 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-850 transition-colors">
+                                <span id="light-icon">🔦</span> <span id="light-text">ライトを点灯する（本来の色へ）</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Visual Panel -->
+                    <div class="md:col-span-7 bg-slate-950 border border-slate-850 rounded-2xl p-4 flex flex-col items-center">
+                        <span class="text-[10px] text-slate-500 font-mono mb-2" id="color-status-text">【0m】すべての色が美しく見えます</span>
+                        
+                        <!-- Simulated Photo Area -->
+                        <div class="relative w-full h-48 rounded-xl overflow-hidden shadow-inner border border-slate-800 flex items-center justify-center">
+                            <!-- Overlay Filter for water color absorption -->
+                            <div id="color-overlay" class="absolute inset-0 bg-transparent mix-blend-multiply pointer-events-none transition-all duration-500"></div>
+                            
+                            <!-- Colorful sea element graphic created with pure CSS/HTML -->
+                            <div class="w-full h-full flex items-center justify-around p-4 relative bg-slate-900 transition-all duration-500" id="sea-bg-element">
+                                <!-- Red Element (Coral/Diver) -->
+                                <div class="text-center transition-all duration-300 transform" id="coral-red">
+                                    <div class="text-4xl">🐢</div>
+                                    <span class="text-[10px] bg-red-600 text-white px-1.5 py-0.5 rounded font-bold block mt-1 transition-all duration-300" id="lbl-red">赤色 (カメの甲羅)</span>
+                                </div>
+                                <!-- Yellow Fish -->
+                                <div class="text-center transition-all duration-300 transform" id="fish-yellow">
+                                    <div class="text-4xl">🐠</div>
+                                    <span class="text-[10px] bg-yellow-500 text-slate-950 px-1.5 py-0.5 rounded font-bold block mt-1 transition-all duration-300" id="lbl-yellow">黄色の魚</span>
+                                </div>
+                                <!-- Purple Element (Manta details/Deepwater) -->
+                                <div class="text-center transition-all duration-300 transform" id="jelly-purple">
+                                    <div class="text-4xl">🦈</div>
+                                    <span class="text-[10px] bg-violet-600 text-white px-1.5 py-0.5 rounded font-bold block mt-1 transition-all duration-300" id="lbl-purple">サメ (最後まで視認)</span>
+                                </div>
+                            </div>
+
+                            <!-- Flashlight effect circle when turned ON -->
+                            <div id="flashlight-beam" class="hidden absolute pointer-events-none w-52 h-52 rounded-full border-4 border-amber-300/30 bg-radial-gradient mix-blend-normal" style="background: radial-gradient(circle, rgba(254,243,199,0.7) 0%, transparent 80%);"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 3: SUITS & BUOYANCY CONTROL ================= -->
+        <section id="tab-suits" class="tab-content space-y-8 hidden">
+            
+            <!-- Wet vs Dry Suit Science -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 bg-sky-500/20 text-sky-400 rounded-lg">🏄‍♂️</span>
+                        <h2 class="text-xl font-bold text-slate-100">WET（ウェット） vs DRY（ドライ）徹底解剖</h2>
+                    </div>
+                    <span class="text-xs text-sky-400">水温と厚み、保温メカニズムの違い</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Wet Suit detail -->
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-850 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-amber-950/80 text-amber-400 border border-amber-800/50 px-3 py-1 rounded-full text-xs font-bold">WET (ウェットスーツ)</span>
+                                <span class="text-xs text-slate-500 font-bold">価格：2〜24万円</span>
+                            </div>
+                            
+                            <h3 class="text-base font-extrabold text-slate-200 mb-3">💧 自分の体温で「水」を温めてキープする</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                インナーには水着を着用。
+                                あえてスーツ内に水を取り込み、**「入った水が出ていかないよう密着」**させ、**「抜けない水を自分の体温で温め、そのお湯の層で体温を保つ」**という極めて合理的な仕組みです。
+                            </p>
+
+                            <ul class="space-y-2 text-xs text-slate-400 border-t border-slate-800/80 pt-3">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-amber-500">📏</span>
+                                    <span><strong>肉厚：5〜8mm</strong> (サーフィン用は3〜5mm。ダイビング用は強い水圧がかかるため、潰れに強い分厚いゴム生地を採用)</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-rose-500">⚠️</span>
+                                    <span>サーフィン用で潜ると水圧に耐えられず、生地の中の気泡がすぐに破壊されてボロボロになります。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Dry Suit detail -->
+                    <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-850 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="bg-blue-950/80 text-blue-400 border border-blue-800/50 px-3 py-1 rounded-full text-xs font-bold">DRY (ドライスーツ)</span>
+                                <span class="text-xs text-slate-500 font-bold">価格：5〜60万円</span>
+                            </div>
+                            
+                            <h3 class="text-base font-extrabold text-slate-200 mb-3">💨 「空気の層」で水をシャットアウトし保温</h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                インナーには普通の服と靴下を着用。
+                                体が一切水に濡れず、**「服の繊維」と「スーツ内の気体（空気）」によって体温の低下を防ぎます。**
+                            </p>
+
+                            <ul class="space-y-2 text-xs text-slate-400 border-t border-slate-800/80 pt-3">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-blue-400">📏</span>
+                                    <span><strong>32カ所の精密測定:</strong> 首や手首からの水の浸入を1滴も許さないため、オーダーメイド時は全身を綿密に測定します。</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-rose-500">⚠️</span>
+                                    <span>中に水が入ってしまうと、服や空気が冷えて一気に極寒となり、バランスが崩れて非常に危険になります。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Dive Brand Profile -->
+                <div class="bg-gradient-to-r from-sky-950/80 to-slate-950 border border-sky-800/40 rounded-2xl p-5 mt-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-sky-400">🇯🇵</span>
+                        <h4 class="font-bold text-sky-300 text-sm">信頼の国産スーツメーカー：WORLD DIVE (ワールドダイブ)</h4>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        ダイバー憧れのトップ国産ブランド。**「気泡（マイクロセル）の耐久性」**が抜群に高く、深海の水圧で潰れても気泡が破れにくい頑丈な生地が特徴です。また、日本人の体型変化に合わせた伸縮性や、体型変化に対応しやすい形状記憶生地のノウハウを持っており、非常に高いクオリティと耐久性を誇ります。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Buoyancy Dynamics & BCD連動 (Note 4 & 6) -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-4 mb-6">
+                    <span class="p-1.5 bg-emerald-500/20 text-emerald-400 rounded-lg">⚖️</span>
+                    <h2 class="text-xl font-bold text-slate-100">深さによる浮力変化と「BCD連動」の動的プロセス</h2>
+                </div>
+
+                <!-- Process Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-400">
+                    
+                    <!-- Phase 1 -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <span class="bg-sky-950/80 text-sky-400 px-2 py-0.5 rounded font-bold text-[10px]">1. 潜行中 (水深が深くなる)</span>
+                        <h4 class="font-bold text-slate-200 mt-2 text-sm mb-2">🎈 スーツが潰れて「浮力」が減る</h4>
+                        <p class="leading-relaxed">
+                            深く潜れば潜るほど、周囲の水圧が高くなります。すると、スーツのネオプレンゴム内にある無数のミクロな**「気泡（空気）」の体積が押し縮められて小さくなります。**<br>
+                            これによってスーツ自体が持っていた浮力がみるみる失われ、体全体が沈みやすくなります。
+                        </p>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <span class="bg-emerald-950/80 text-emerald-400 px-2 py-0.5 rounded font-bold text-[10px]">2. 水底付近 (中性浮力のキープ)</span>
+                        <h4 class="font-bold text-slate-200 mt-2 text-sm mb-2">💨 BCDに空気を入れて「中性浮力」確保</h4>
+                        <p class="leading-relaxed">
+                            スーツが潰れて失われた浮力を補うため、**浮力調整装置（BCD = Buoyancy Control Device）に空気を少しずつ注入**します。<br>
+                            これにより、浮きも沈みもしないピタッと止まる状態（中性浮力）を確保します。<br>
+                            <span class="text-amber-400 font-bold">※一気に入れすぎないように細かく注気するのが注意点です。</span>
+                        </p>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+                        <span class="bg-rose-950/80 text-rose-400 px-2 py-0.5 rounded font-bold text-[10px]">3. 浮上開始 (最重要トラブル注意点)</span>
+                        <h4 class="font-bold text-slate-200 mt-2 text-sm mb-2">⚠️ 空気が膨張！「こまめに排気」</h4>
+                        <p class="leading-relaxed">
+                            浮上し始めると、今度は水圧が下がるため、**スーツ内のつぶれていた気泡が元の大きさに戻り（膨張し）、さらにBCD内の空気もどんどん膨張します！**<br>
+                            この膨張をそのままにすると浮きすぎてしまい、危険な「急浮上」のリスクが一気に上がります。<br>
+                            必ず**「浮上中はBCDの空気をこまめに抜く」**操作を行い、安全を確保しましょう。
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Weights & Tank Note -->
+                <div class="bg-slate-900/40 border border-slate-800 p-4 rounded-xl mt-6 text-xs text-slate-400 flex items-start gap-2.5">
+                    <span class="text-base">⚖️</span>
+                    <div>
+                        <span class="font-bold text-slate-200">ウエイト（重り）の役割とボンベの重さ</span>
+                        <p class="mt-0.5 leading-relaxed">
+                            スチールボンベ単体で約13kgの自重がありますが、ダイビングスーツが持つ初期浮力が非常に強いため、ボンベの重さだけでは浮力が相殺できず沈むことができません。そのため、スーツの浮力を打ち消すための**「ウエイト（鉛の重り）」を体に巻いて**調整します。（明確な基準はなく、スーツの浮力と相殺するくらいに合わせます）
+                        </p>
+                        <p class="text-sky-400 font-bold mt-1">💡 まとめ：操作ミスによる急浮上トラブルを防ぎ、ブラックマンタや大群を優雅にホバリング撮影するためにも、定期的に練習してマイ器材（同じもの）を使い、浮力コントロールの感覚に慣れることが極めて大切です！</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 4: REVIEW QUIZ ================= -->
+        <section id="tab-quiz" class="tab-content space-y-8 hidden">
+            
+            <!-- Instructions -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <h2 class="text-xl font-bold text-slate-100 mb-2 flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-sky-500 rounded-full"></span>
+                    学科講習 2 復習チェックテスト
+                </h2>
+                <p class="text-slate-405 text-sm mb-6">今日学んだばかりの水圧・色彩消失・スーツの気泡の性質について、5問のクイズで完全理解をテスト！</p>
+
+                <!-- Game Container -->
+                <div class="max-w-xl mx-auto border border-slate-800 rounded-2xl p-6 bg-slate-900 relative">
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-850 h-2 rounded-full mb-6 overflow-hidden">
+                        <div id="quiz-progress" class="bg-sky-500 h-full transition-all duration-300" style="width: 20%"></div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div id="quiz-box">
+                        <div class="flex items-center justify-between text-xs font-bold text-sky-400 mb-2">
+                            <span id="quiz-category">水中物理</span>
+                            <span id="quiz-number">第 1 問 / 全 5 問</span>
+                        </div>
+                        <h3 id="quiz-question" class="text-base md:text-lg font-bold text-slate-200 mb-6 leading-relaxed">
+                            質問文がここに表示されます。
+                        </h3>
+
+                        <!-- Choices -->
+                        <div class="space-y-3" id="quiz-choices">
+                            <!-- JS will inject buttons here -->
+                        </div>
+                    </div>
+
+                    <!-- Feedback Overlay -->
+                    <div id="quiz-feedback" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center z-10 transition-all">
+                        <div id="feedback-icon" class="text-5xl mb-4">🎉</div>
+                        <h4 id="feedback-title" class="text-lg font-bold text-slate-200 mb-2">判定</h4>
+                        <p id="feedback-text" class="text-slate-300 text-xs md:text-sm mb-6 leading-relaxed">
+                            解説文がここに入ります。
+                        </p>
+                        <button onclick="nextQuestion()" class="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-xs md:text-sm transition-colors">
+                            次の問題へ
+                        </button>
+                    </div>
+
+                    <!-- Result Panel -->
+                    <div id="quiz-result" class="hidden text-center py-8">
+                        <div class="text-5xl mb-4">🏆</div>
+                        <h3 class="text-xl font-bold text-slate-200 mb-2">学科2 完全クリア！</h3>
+                        <p class="text-slate-404 text-xs md:text-sm mb-6 leading-relaxed">
+                            2回目のダイビング学科講習の知識がしっかりと定着しています！<br>
+                            この物理法則を頭に入れた状態で海に潜ることで、中性浮力を活かしてブラックマンタやジンベエザメ、クジラといった大物に並走し、綺麗にカメラで捉えることができます！
+                        </p>
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="restartQuiz()" class="px-5 py-2 border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold rounded-xl text-xs transition-colors">
+                                もう一度挑戦
+                            </button>
+                            <button onclick="switchTab('tab-physics')" class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl text-xs transition-colors">
+                                ノートに戻る
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Memory Flash Cards -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-sky-950">
+                <h3 class="text-lg font-bold text-slate-100 mb-2">暗記フラッシュカード（めくって確認）</h3>
+                <p class="text-slate-404 text-xs mb-6">重要な数値や仕組みを繰り返し訓練しましょう！</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="flipCard(this)" class="group h-44 [perspective:1000px] cursor-pointer">
+                        <div class="relative h-full w-full rounded-2xl border border-slate-800 transition-all duration-500 [transform-style:preserve-3d] shadow-sm hover:shadow-md">
+                            <!-- Front -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-slate-900 backface-hidden">
+                                <span class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">熱伝導率の科学</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">水中は陸上に比べて熱の伝わる速さが「何倍」？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-rose-950 text-white [transform:rotateY(180deg)] backface-hidden">
+                                <span class="text-[10px] font-bold text-rose-300 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-2xl font-black">25 倍</h4>
+                                    <p class="text-[11px] text-slate-300 mt-1">熱が極めて速く伝わるため、同じ温度でも水中の方が急激に冷えを感じます。</p>
+                                </div>
+                                <span class="text-[10px] text-rose-300 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="flipCard(this)" class="group h-44 [perspective:1000px] cursor-pointer">
+                        <div class="relative h-full w-full rounded-2xl border border-slate-800 transition-all duration-500 [transform-style:preserve-3d] shadow-sm hover:shadow-md">
+                            <!-- Front -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-slate-900 backface-hidden">
+                                <span class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">ドライスーツ測定</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">DRYをオーダーメイドする際、全身を「何カ所」測る？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-sky-950 text-slate-900 [transform:rotateY(180deg)] backface-hidden">
+                                <span class="text-[10px] font-bold text-sky-900 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-xl font-bold">32 カ所</h4>
+                                    <p class="text-[11px] text-slate-700 mt-1">体にフィットさせ、手首や首から水を一滴も入れないための極めて重要な採寸数です。</p>
+                                </div>
+                                <span class="text-[10px] text-sky-900 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="flipCard(this)" class="group h-44 [perspective:1000px] cursor-pointer">
+                        <div class="relative h-full w-full rounded-2xl border border-slate-800 transition-all duration-500 [transform-style:preserve-3d] shadow-sm hover:shadow-md">
+                            <!-- Front -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-slate-900 backface-hidden">
+                                <span class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">ボイルの法則</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">水深10m（2気圧）での12Lの空気の「体積」は？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 flex flex-col justify-between p-5 rounded-2xl bg-emerald-950 text-white [transform:rotateY(180deg)] backface-hidden">
+                                <span class="text-[10px] font-bold text-emerald-300 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-2xl font-black">6 リットル</h4>
+                                    <p class="text-[11px] text-slate-300 mt-1">2気圧になるため体積は半分の「6L」に潰れます。30m（4気圧）では「3L（1/4）」になります。</p>
+                                </div>
+                                <span class="text-[10px] text-emerald-300 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 border-t border-sky-950 py-10 px-4 mt-12">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-2 text-white font-bold text-base">
+                    <span>👑 BSAC (The British Sub-Aqua Club)</span>
+                    <span class="text-xs bg-slate-800 text-slate-400 border border-slate-700 px-2 py-0.5 rounded">指導団体</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">日本語正式名称：英国水中クラブ （エディンバラ公、チャールズ国王などが総裁を務めた伝統ある組織）</p>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                    理念は <strong>「Safety first（安全最優先）」</strong>。今回学んだ物理とスーツの知識は、憧れのブラックマンタを安全に捉えるための強力な土台です。<br>
+                    いつか伊豆や白浜をはじめ世界中の海で、水中ライトを当てながらジンベエザメやサメの大群を綺麗な写真に収めましょう！
+                </p>
+            </div>
+            
+            <div class="text-xs text-slate-500 md:text-right">
+                <p>© 2026 Diving Study Note. Lesson 2 Completed.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Tab switching
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-sky-400 hover:bg-slate-900";
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.className = "tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 bg-sky-600 text-white";
+        }
+
+        // Memory Card flipping
+        function flipCard(cardContainer) {
+            const innerCard = cardContainer.querySelector('div');
+            innerCard.classList.toggle('[transform:rotateY(180deg)]');
+        }
+
+        // --- Boyle's Law Sim Logic ---
+        function updateBoyleSim(val) {
+            const bubble = document.getElementById('sim-bubble');
+            const bubbleText = document.getElementById('bubble-text');
+            const simDepth = document.getElementById('sim-depth');
+            const simPressure = document.getElementById('sim-pressure');
+            const simVolume = document.getElementById('sim-volume');
+            const boyleStatus = document.getElementById('boyle-status');
+
+            const depth = parseInt(val);
+            simDepth.innerText = `${depth} m`;
+
+            let ratio = 1.0;
+            let pressure = 1;
+            let volume = 12;
+
+            if (depth === 0) {
+                ratio = 1.0;
+                pressure = 1;
+                volume = 12;
+                boyleStatus.innerText = "【水面 (0m)】空気は元の大きさ (12L)。締め付け（スクイーズ）もありません。";
+            } else if (depth === 10) {
+                ratio = 0.707; // sqrt(1/2) for visual scaling representation
+                pressure = 2;
+                volume = 6;
+                boyleStatus.innerText = "【水深10m】気圧は2倍に。体積は半分の「6L」に潰れます！耳抜きやスーツの圧迫感に注意。";
+            } else if (depth === 20) {
+                ratio = 0.577; // sqrt(1/3) for representation
+                pressure = 3;
+                volume = 4;
+                boyleStatus.innerText = "【水深20m】気圧は3倍。空気は「4L」へ収縮。スーツの気泡が潰れるため、浮力が著しく減少します。";
+            } else if (depth === 30) {
+                ratio = 0.5; // sqrt(1/4)
+                pressure = 4;
+                volume = 3;
+                boyleStatus.innerText = "【水深30m】限界付近。気圧は4倍、空気は最初の4分の1の「3L」へ。BCDへの吸気で中性浮力を確保します。";
+            }
+
+            // Animate sizes
+            const pixelSize = Math.floor(140 * ratio);
+            bubble.style.width = `${pixelSize}px`;
+            bubble.style.height = `${pixelSize}px`;
+            
+            // Text updates
+            bubbleText.innerText = `${volume}L (${Math.round((volume/12)*100)}%)`;
+            simPressure.innerText = `${pressure} 気圧`;
+            simVolume.innerText = `${volume} L (1/${pressure})`;
+        }
+
+        // --- Color Absorption Sim Logic ---
+        let currentWaterDepth = 0;
+        let isLightOn = false;
+
+        function setWaterDepth(depth) {
+            currentWaterDepth = depth;
+            
+            // Reset active button states
+            const btns = document.querySelectorAll('.depth-btn');
+            btns.forEach(b => {
+                b.className = "depth-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 text-xs font-bold transition-all";
+            });
+            document.getElementById(`btn-depth-${depth}`).className = "depth-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white text-xs font-bold transition-all";
+
+            applyColorEffects();
+        }
+
+        function toggleLight() {
+            isLightOn = !isLightOn;
+            const btn = document.getElementById('btn-light');
+            const lightText = document.getElementById('light-text');
+            const lightIcon = document.getElementById('light-icon');
+            const beam = document.getElementById('flashlight-beam');
+
+            if (isLightOn) {
+                btn.className = "w-full py-2 px-4 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 hover:bg-amber-400 transition-colors";
+                lightText.innerText = "ライトを消灯する";
+                lightIcon.innerText = "💡";
+                beam.classList.remove('hidden');
+            } else {
+                btn.className = "w-full py-2 px-4 rounded-xl bg-slate-800 text-amber-400 border border-amber-500/30 font-bold text-xs flex items-center justify-center gap-2 hover:bg-slate-850 transition-colors";
+                lightText.innerText = "ライトを点灯する（本来の色へ）";
+                lightIcon.innerText = "🔦";
+                beam.classList.add('hidden');
+            }
+
+            applyColorEffects();
+        }
+
+        function applyColorEffects() {
+            const overlay = document.getElementById('color-overlay');
+            const redCoral = document.getElementById('coral-red');
+            const yellowFish = document.getElementById('fish-yellow');
+            const purpleJelly = document.getElementById('jelly-purple');
+            const statusText = document.getElementById('color-status-text');
+
+            const lblRed = document.getElementById('lbl-red');
+            const lblYellow = document.getElementById('lbl-yellow');
+            const lblPurple = document.getElementById('lbl-purple');
+            const bgElement = document.getElementById('sea-bg-element');
+
+            // Default filters and text
+            let overlayColor = "transparent";
+            let depthStatus = "【0m 水面】すべての色が明るくはっきりと見えます！";
+            
+            let redOpacity = "1.0";
+            let yellowOpacity = "1.0";
+            let purpleOpacity = "1.0";
+
+            let redColorStyle = "rgb(220, 38, 38)";
+            let yellowColorStyle = "rgb(234, 179, 8)";
+            let purpleColorStyle = "rgb(124, 58, 237)";
+
+            if (!isLightOn) {
+                // If light is off, apply progressive water absorption filters
+                if (currentWaterDepth === 0) {
+                    overlayColor = "transparent";
+                    bgElement.style.backgroundColor = "#0f172a";
+                } else if (currentWaterDepth === 10) {
+                    overlayColor = "rgba(14, 165, 233, 0.25)";
+                    depthStatus = "【水深10m】波長の長い「赤色」が水に吸収されて消失。カメの甲羅の赤みがくすんだ茶褐色に変化。";
+                    redColorStyle = "rgb(115, 115, 115)"; // Red lost, turned greyish-brown
+                    bgElement.style.backgroundColor = "#0b314d";
+                } else if (currentWaterDepth === 20) {
+                    overlayColor = "rgba(12, 74, 110, 0.5)";
+                    depthStatus = "【水深20m】さらに「黄色」も消失。キイロハギ本来の鮮やかな黄色がなくなり、青っぽく同化。";
+                    redColorStyle = "rgb(75, 85, 99)";
+                    yellowColorStyle = "rgb(120, 113, 108)"; // Yellow lost
+                    bgElement.style.backgroundColor = "#07243a";
+                } else if (currentWaterDepth === 30) {
+                    overlayColor = "rgba(8, 51, 68, 0.75)";
+                    depthStatus = "【水深30m】赤・黄色は完全に消失。一番深く到達する「紫」と青だけが残り、全体が青い大群の影に。";
+                    redColorStyle = "rgb(55, 65, 81)";
+                    yellowColorStyle = "rgb(75, 85, 99)";
+                    purpleColorStyle = "rgb(139, 92, 246)"; // Purple remains most visible
+                    bgElement.style.backgroundColor = "#021526";
+                }
+            } else {
+                // If light is ON, restore beautiful colors regardless of depth
+                overlayColor = "rgba(254, 243, 199, 0.1)"; // Light beam tint
+                depthStatus = `【水深${currentWaterDepth}m・ライト点灯】ライト照射！カメや魚、大群本来の素晴らしい「赤」や「黄色」を復元して撮影できます！`;
+                bgElement.style.backgroundColor = "#0f172a";
+            }
+
+            // Apply style updates
+            overlay.style.backgroundColor = overlayColor;
+            statusText.innerText = depthStatus;
+
+            lblRed.style.backgroundColor = redColorStyle;
+            lblYellow.style.backgroundColor = yellowColorStyle;
+            lblPurple.style.backgroundColor = purpleColorStyle;
+        }
+
+        // CSS Helper injection for 3D card backfaces
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .backface-hidden {
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+
+
+        // --- Quiz System ---
+        const quizData = [
+            {
+                category: "熱の科学",
+                question: "水中は陸上に比べて、熱が体に伝わるスピードが何倍速い？",
+                choices: [
+                    "A. 約5倍",
+                    "B. 約25倍",
+                    "C. 約100倍"
+                ],
+                correct: 1,
+                explanation: "正解は「B. 約25倍」です！熱の伝達スピードが陸上の25倍も速いため、気温と同じ温度の海水であっても急速に体温が奪われます。低体温症（体温35℃以下）を防ぐために、必ず保温用のスーツを着用するのが鉄則です。"
+            },
+            {
+                category: "水中視覚",
+                question: "光の屈折現象により、水中での物は実際よりもどのように見える？",
+                choices: [
+                    "A. 1/2倍 小さく、遠くに見える",
+                    "B. 4/3倍 大きく、近くに見える",
+                    "C. そのままの大きさで見える"
+                ],
+                correct: 1,
+                explanation: "正解は「B. 4/3倍 大きく、近くに見える」です！マスクの空気層による光の屈折のために、物体が通常より4/3倍拡大され近くに見えます。そのため手を伸ばしてモノを掴む際は、少し手前からひっかけるように指を曲げて掴むとうまくいきます。"
+            },
+            {
+                category: "ダイビング機材",
+                question: "浮力調整ベストである重器材「BCD」の正式名称は何？",
+                choices: [
+                    "A. Body Control Device (身体調整装置)",
+                    "B. Buoyancy Control Device (浮力調整装置)",
+                    "C. Bottom Check Depth (底面深度計)"
+                ],
+                correct: 1,
+                explanation: "正解は「B. Buoyancy Control Device」です！中性浮力をキープするために空気を出し入れするベスト型器材です。深くなるとスーツの気泡が水圧で潰れて浮力が失われるため、BCDに空気を入れて補正します。浮上時は空気が膨張して浮きやすくなるため、こまめに抜く操作が急浮上防止の要です。"
+            },
+            {
+                category: "スーツの仕組み",
+                question: "体が全く濡れない「ドライスーツ（DRY）」の、熱を逃がさない保温の最大の主役となるインナー素材は何？",
+                choices: [
+                    "A. 水着とスーツ内に入る水",
+                    "B. 服の繊維と、スーツ内に注入された空気（気体）",
+                    "C. ウエイトの重み"
+                ],
+                correct: 1,
+                explanation: "正解は「B」です！ドライスーツは服の繊維と、空気（気体）を内部に保持することで強力に保温します。万が一中に水が侵入してしまうと、空気が冷やされてバランスが完全に崩れ、極寒の危険な状態になるため注意が必要です。"
+            },
+            {
+                category: "視覚・色彩消失",
+                question: "深くなると水中の光が水に吸収されますが、最も最後まで吸収されずに残り「水深が深いところで一番よく見える」色彩は何色？",
+                choices: [
+                    "A. 赤色",
+                    "B. 黄色",
+                    "C. 紫色"
+                ],
+                correct: 2,
+                explanation: "正解は「C. 紫色」です！赤い光は波長が長いため浅いところで真っ先に吸収されて消えてしまいます。一方、波長が短い「紫（および青）」は深くまで届くため、深部では紫色の生き物やライトが最も視認しやすくなります。本来の色を見るには水中ライトを当てます。"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function updateQuizUI() {
+            const currentQuiz = quizData[currentQuestionIndex];
+            
+            // Progress Bar
+            const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+
+            // Text
+            document.getElementById('quiz-category').innerText = currentQuiz.category;
+            document.getElementById('quiz-number').innerText = `第 ${currentQuestionIndex + 1} 問 / 全 ${quizData.length} 問`;
+            document.getElementById('quiz-question').innerText = currentQuiz.question;
+
+            // Choices
+            const choicesContainer = document.getElementById('quiz-choices');
+            choicesContainer.innerHTML = '';
+            currentQuiz.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.onclick = () => checkAnswer(index);
+                button.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 hover:border-sky-500 hover:bg-slate-850 transition-all font-medium text-slate-300 text-xs md:text-sm";
+                button.innerText = choice;
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const currentQuiz = quizData[currentQuestionIndex];
+            const feedbackOverlay = document.getElementById('quiz-feedback');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+
+            if (selectedIndex === currentQuiz.correct) {
+                feedbackIcon.innerText = "🎉";
+                feedbackTitle.innerText = "正解です！";
+                feedbackTitle.className = "text-xl font-bold text-emerald-400 mb-2";
+            } else {
+                feedbackIcon.innerText = "💡";
+                feedbackTitle.innerText = "復習のポイント！";
+                feedbackTitle.className = "text-xl font-bold text-amber-400 mb-2";
+            }
+
+            feedbackText.innerText = currentQuiz.explanation;
+            feedbackOverlay.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                updateQuizUI();
+            } else {
+                // Done all questions
+                document.getElementById('quiz-progress').style.width = `100%`;
+                document.getElementById('quiz-box').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            updateQuizUI();
+        }
+
+        // Initialize quiz on load
+        window.onload = function() {
+            updateQuizUI();
+            updateBoyleSim(0);
+            setWaterDepth(0);
+        }
+    </script>
+</body>
+</html>
