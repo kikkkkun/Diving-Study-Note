@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diving Study Note - 学科講習 3</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #020617;
+        }
+        .accent-font {
+            font-family: 'Kiwi Maru', serif;
+        }
+        .abyss-gradient {
+            background: linear-gradient(180deg, #0f172a 0%, #1e3a8a 50%, #172554 100%);
+        }
+        .bio-luminescence {
+            background-image: radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 30%),
+                              radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 30%);
+        }
+        
+        /* Simulator Animations */
+        @keyframes float-up-fast {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-160px); }
+        }
+        @keyframes float-up-safety {
+            0% { transform: translateY(0); }
+            30% { transform: translateY(-120px); } /* Stop at 5m */
+            80% { transform: translateY(-120px); } /* Wait 3 min */
+            100% { transform: translateY(-160px); } /* To surface */
+        }
+        @keyframes bubble-expand {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .anim-fast { animation: float-up-fast 1s ease-out forwards; }
+        .anim-safety { animation: float-up-safety 4s ease-in-out forwards; }
+        .nitrogen-bubble {
+            position: absolute;
+            background: radial-gradient(circle, rgba(239,68,68,0.8) 0%, rgba(220,38,38,0) 70%);
+            border-radius: 50%;
+            animation: bubble-expand 1s ease-out infinite;
+        }
+
+        /* 修正版：確実に反転しないフリップカードのCSS */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem; /* Tailwindの rounded-2xl 相当 */
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col bio-luminescence">
+
+    <!-- Header -->
+    <header class="abyss-gradient text-white py-10 px-4 shadow-2xl relative overflow-hidden border-b border-indigo-950">
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#60a5fa" fill-opacity="0.15" d="M0,256L48,229.3C96,203,192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        
+        <div class="max-w-5xl mx-auto relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Lesson 3: 学科講習 3</span>
+                <h1 class="text-3xl md:text-5xl font-extrabold mt-2 tracking-tight accent-font text-blue-50">Diving Study Note</h1>
+                <p class="text-indigo-200 text-sm mt-1 font-medium">「潜水医学（減圧症の予防）と器材・タンクの真実」</p>
+            </div>
+            
+            <!-- Goal Box -->
+            <div class="bg-slate-950/70 backdrop-blur-md border border-indigo-500/40 rounded-2xl p-4 md:max-w-md shadow-2xl">
+                <div class="flex items-center gap-2 text-amber-300 font-bold text-xs mb-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-bounce" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
+                    </svg>
+                    <span>マイ・ダイビング目標 🌊📸</span>
+                </div>
+                <p class="text-white text-xs md:text-sm font-semibold accent-font leading-relaxed">
+                    「ブラックマンタを見たい！水中カメラを使いこなして、ジンベエザメ・クジラ・カメ・サメの大群を絶対綺麗に写真に収めたい！」
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-slate-950 border-b border-indigo-950 sticky top-0 z-40 shadow-md">
+        <div class="max-w-5xl mx-auto px-4">
+            <nav class="flex space-x-1 md:space-x-2 overflow-x-auto py-3" aria-label="Tabs">
+                <button onclick="switchTab('tab-medical')" id="btn-tab-medical" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 bg-indigo-600 text-white">
+                    🩺 1. 潜水医学と体調管理
+                </button>
+                <button onclick="switchTab('tab-equip')" id="btn-tab-equip" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-indigo-400 hover:bg-slate-900">
+                    🤿 2. 器材知識とマイ器材
+                </button>
+                <button onclick="switchTab('tab-schedule')" id="btn-tab-schedule" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-indigo-400 hover:bg-slate-900">
+                    🗓️ 3. スケジュール＆持ち物
+                </button>
+                <button onclick="switchTab('tab-quiz')" id="btn-tab-quiz" class="tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-indigo-400 hover:bg-slate-900">
+                    🧠 4. 復習テスト
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl w-full mx-auto p-4 md:p-6">
+
+        <!-- ================= TAB 1: MEDICAL & SAFETY ================= -->
+        <section id="tab-medical" class="tab-content space-y-8">
+            
+            <!-- Decompression Sickness (減圧症) -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-indigo-950">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-4 mb-6">
+                    <span class="p-2 bg-rose-500/20 text-rose-400 rounded-lg text-xl">⚠️</span>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-100">ダイバーの最大の敵「減圧症（潜水病）」</h2>
+                        <p class="text-xs text-slate-400 mt-1">ルールを守れば必ず防げる。知識で命を守る。</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Mechanism & Causes -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-rose-300 mb-3 flex items-center gap-2">
+                                🩸 なぜ起こる？（メカニズム）
+                            </h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                水圧が高い水中にいると、呼吸した空気中の**「窒素（N2）」**が血液や組織に過剰に溶け込みます。<br>
+                                この状態で**急浮上**すると、コーラの栓を急に開けた時のように、溶け込んでいた窒素が一気に気泡化し、血管を詰まらせてしまいます。
+                            </p>
+                            <div class="bg-rose-950/30 p-3 rounded-xl border border-rose-900/40 text-xs">
+                                <strong class="text-rose-400 block mb-1">【3大原因】</strong>
+                                <ul class="list-disc list-inside pl-4 text-slate-300 space-y-1">
+                                    <li><strong>急浮上</strong>（最大の原因）</li>
+                                    <li>長すぎる潜水時間・深すぎる水深</li>
+                                    <li>ダイビング直後の高所移動（<span class="text-rose-400 font-bold">飛行機搭乗は絶対NG！</span>）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms & Treatment -->
+                    <div class="bg-slate-900/60 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-amber-300 mb-3 flex items-center gap-2">
+                                🏥 症状と処置・予防法
+                            </h3>
+                            <div class="space-y-3 text-xs text-slate-300">
+                                <div>
+                                    <strong class="text-amber-400">【主な症状】</strong>
+                                    <p class="mt-1">皮膚のかゆみから始まり、重症化すると関節の激痛、神経系の障害（麻痺）、内臓系の障害など重篤な事態を引き起こします。</p>
+                                </div>
+                                <div>
+                                    <strong class="text-amber-400">【処置の難しさ】</strong>
+                                    <p class="mt-1">気泡を消すには「高圧タンク（チャンバー）」による治療が必要ですが、設備がある病院は非常に限られています。</p>
+                                </div>
+                                <div class="bg-indigo-950/40 p-3 rounded-xl border border-indigo-900/50 mt-2">
+                                    <strong class="text-indigo-300 block mb-1">【確実な予防法】</strong>
+                                    <ul class="list-disc list-inside pl-2 space-y-1">
+                                        <li>**ダイブコンピューター**を必ず使い指示を守る。</li>
+                                        <li>**BCDの操作を確実に行う**（操作ミスによる急浮上を防ぐため、マイ器材での慣れが重要）。</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Safety Stop Simulator -->
+                <div class="bg-slate-900 border border-indigo-900/50 rounded-2xl p-5 md:p-8">
+                    <h3 class="font-bold text-indigo-300 mb-4 text-center text-lg">🛟 減圧症を防ぐ「安全停止」シミュレーター</h3>
+                    <p class="text-xs text-slate-400 text-center mb-6 max-w-2xl mx-auto">
+                        ダイビングの最後、陸に上がる前に必ず**「水深5mで3分間」**とどまり、体内の窒素を安全に抜く儀式を「安全停止」と呼びます。<br>
+                        急浮上した場合と、安全停止をした場合の違いを確認してみましょう。
+                    </p>
+
+                    <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+                        
+                        <!-- Water Visual Area -->
+                        <div class="relative w-48 h-64 bg-gradient-to-b from-sky-400/40 to-blue-900/80 border-2 border-slate-700 rounded-xl overflow-hidden shadow-inner">
+                            <!-- Depth Markers -->
+                            <div class="absolute top-4 left-2 text-[10px] text-white/70 font-bold border-b border-white/30 w-8">0m</div>
+                            <div class="absolute top-12 left-2 text-[10px] text-yellow-300 font-bold border-b border-yellow-300/50 w-8">5m</div>
+                            <div class="absolute bottom-4 left-2 text-[10px] text-white/50 font-bold border-b border-white/30 w-8">15m</div>
+
+                            <!-- Diver Icon -->
+                            <div id="sim-diver" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-4xl transition-transform">
+                                🤿
+                            </div>
+
+                            <!-- Danger Bubble Container -->
+                            <div id="danger-bubbles" class="absolute inset-0 pointer-events-none hidden">
+                                <div class="nitrogen-bubble w-6 h-6 top-8 left-10"></div>
+                                <div class="nitrogen-bubble w-8 h-8 top-12 left-24" style="animation-delay: 0.2s"></div>
+                                <div class="nitrogen-bubble w-5 h-5 top-20 left-16" style="animation-delay: 0.4s"></div>
+                            </div>
+                        </div>
+
+                        <!-- Controls & Status -->
+                        <div class="flex flex-col gap-4 w-full md:w-64">
+                            <button onclick="runSimFast()" class="w-full py-3 px-4 rounded-xl bg-rose-900/80 text-rose-200 border border-rose-700 hover:bg-rose-800 font-bold text-sm transition-colors shadow-lg">
+                                🚀 急浮上する (NG)
+                            </button>
+                            <button onclick="runSimSafety()" class="w-full py-3 px-4 rounded-xl bg-emerald-700 text-white border border-emerald-500 hover:bg-emerald-600 font-bold text-sm transition-colors shadow-lg flex items-center justify-center gap-2">
+                                ⏱️ 安全停止をして浮上 (OK)
+                            </button>
+
+                            <div id="sim-status-box" class="mt-2 p-4 rounded-xl bg-slate-950 border border-slate-800 min-h-[100px] flex flex-col justify-center items-center text-center">
+                                <span class="text-xs text-slate-500 font-bold">アクションを選択してください</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Medical Conditions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Nitrogen Narcosis -->
+                <div class="bg-slate-950 rounded-3xl p-6 shadow-xl border border-slate-800">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2 mb-3">
+                        <span class="text-2xl">🥴</span> 窒素酔い
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        水圧が高くなると、呼吸ガス中の窒素分圧が上がり、麻酔作用をもたらします。まるで**「お酒に酔った感覚」**になり、判断力が低下したり多幸感に包まれます。
+                    </p>
+                    <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 text-[11px] text-slate-300">
+                        <strong>対処法：</strong> 浅い水深へ少し浮上すれば、すぐに症状は消えて正常に戻ります。
+                    </div>
+                </div>
+
+                <!-- Condition Management -->
+                <div class="bg-slate-950 rounded-3xl p-6 shadow-xl border border-slate-800">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2 mb-3">
+                        <span class="text-2xl">🤢</span> 船酔い・波酔いと体調
+                    </h3>
+                    <ul class="space-y-3 text-xs text-slate-400 leading-relaxed">
+                        <li class="flex items-start gap-2">
+                            <span class="text-sky-400">💊</span>
+                            <span><strong>最強の酔い止め：</strong> 酔い止め薬は「アネロン ニスキャップ」が一番ダイバーに支持されています。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-amber-400">🍔</span>
+                            <span><strong>食事：</strong> 食べすぎ、または極端な空腹状態は、どちらも非常に船酔いしやすくなります。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-rose-500 font-bold">🍺</span>
+                            <span class="text-rose-300 font-bold">二日酔い絶対NG：脱水状態で血液がドロドロになり、窒素が抜けにくくなるため、減圧症リスクが跳ね上がります！</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 2: EQUIPMENTS ================= -->
+        <section id="tab-equip" class="tab-content space-y-8 hidden">
+            
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-indigo-950">
+                <div class="flex items-center gap-2 border-b border-slate-800 pb-4 mb-6">
+                    <span class="p-1.5 bg-sky-500/20 text-sky-400 rounded-lg text-xl">🥽</span>
+                    <h2 class="text-xl font-bold text-slate-100">ダイビング器材の真実（軽器材・重器材・タンク）</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- 軽器材 -->
+                    <div>
+                        <h3 class="font-bold text-sky-300 border-l-4 border-sky-500 pl-3 mb-4">軽器材のポイント</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-slate-200 text-sm mb-1">スノーケル（意外と重要！）</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    ボート待ちなど水面移動の際、レギュレーターで呼吸するとタンクの空気がもったいないため必須です。また、安全基準として**「スノーケルを装着していないと保険が下りない」**事もあるため必ずマスクに装着します。
+                                </p>
+                            </div>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-slate-200 text-sm mb-1">フィン（足ひれ）の2タイプ</h4>
+                                <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
+                                    <li><strong>フルフット：</strong> 足をそのまま（または薄手ソックスで）すっぽり入れる。</li>
+                                    <li><strong>オープンヒール：</strong> かかとがストラップ。底の厚いブーツを履いて装着。</li>
+                                </ul>
+                                <p class="text-[10px] text-slate-500 mt-2">※Gullなどのブランドが有名。Wetスーツ着用時、足が浮き上がるのを防ぐ役割も。</p>
+                            </div>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-slate-200 text-sm mb-1">マスク</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">顔に密着するシリコンゴム製。レンズが1枚の「一眼」と、左右に分かれた「二眼」があります。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 重器材・タンク -->
+                    <div>
+                        <h3 class="font-bold text-amber-300 border-l-4 border-amber-500 pl-3 mb-4">重器材とシリンダー（タンク）</h3>
+                        <div class="space-y-4">
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-slate-200 text-sm mb-1">BCDの「サイズ適合」は命綱</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">
+                                    浮力調整ベスト（BCD）。**大きさが合っていないと、水中で空気を入れた際にBCDだけが上に浮き上がり、体からすっぽ抜ける危険**があります。<br>
+                                    <span class="text-[10px] text-slate-500 mt-1 block">（※ウエイトをポケットに収納できるタイプ「Aqua Lung製 18万円程度」など高機能なものも。）</span>
+                                </p>
+                            </div>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-slate-200 text-sm mb-1">レギュレーターの構造</h4>
+                                <p class="text-xs text-slate-400 leading-relaxed">タンクに取り付ける根元側を「1st Stage」、口にくわえる側を「2nd Stage」と呼び、空気を吸いやすい圧力に2段階で減圧しています。</p>
+                            </div>
+                            
+                            <!-- Tank differences -->
+                            <div class="bg-indigo-950/40 p-4 rounded-xl border border-indigo-900/60 mt-4">
+                                <h4 class="font-bold text-indigo-300 text-sm mb-3">🛢️ タンク（シリンダー）の材質による違い</h4>
+                                <div class="grid grid-cols-2 gap-3 text-xs">
+                                    <div class="bg-slate-900 p-3 rounded-lg">
+                                        <strong class="text-slate-200">スチール製</strong>
+                                        <ul class="text-[10px] text-slate-400 mt-1 space-y-0.5">
+                                            <li>・底が丸い</li>
+                                            <li>・自立用ゴムブーツ(リング)付</li>
+                                            <li>・重く沈みやすい</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-900 p-3 rounded-lg">
+                                        <strong class="text-slate-200">アルミ製</strong>
+                                        <ul class="text-[10px] text-slate-400 mt-1 space-y-0.5">
+                                            <li>・底が平ら</li>
+                                            <li>・<strong class="text-amber-400">浮力が強い（浮く）</strong></li>
+                                            <li>・スチール時よりウエイトを重くする必要あり</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- My Equipments conclusion -->
+                <div class="bg-gradient-to-r from-emerald-900/40 to-slate-900 border border-emerald-900/50 rounded-2xl p-6 mt-8">
+                    <h3 class="font-bold text-emerald-400 text-base mb-2">💡 なぜ「マイ器材」が推奨されるのか？</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        **「操作方法がBCDによって異なり、体勢によっては空気が抜けないこともある」**ため、いざという時の急浮上（減圧症）を防ぐには、毎回同じ自分の器材を使い、目を瞑っていても操作できるほど**「慣れる」**ことが安全に直結します。<br>
+                        レンタル代を考えれば、**約60回潜れば元が取れる**計算になります。器材に慣れ、「自分のことは自分でできる」真に自立したダイバーを目指しましょう！<br>
+                        <span class="text-[10px] text-slate-500 mt-2 block">※器材は命を預けるものなので、年に1回などの定期的なオーバーホール（検査・メンテ）が必須です。</span>
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 3: SCHEDULE ================= -->
+        <section id="tab-schedule" class="tab-content space-y-8 hidden">
+            
+            <div class="bg-slate-950 rounded-3xl p-8 shadow-2xl border border-indigo-950 max-w-2xl mx-auto">
+                <div class="text-center mb-8">
+                    <span class="text-4xl">🗓️</span>
+                    <h2 class="text-2xl font-bold text-slate-100 mt-3">次回スケジュールメモ</h2>
+                    <p class="text-sm text-slate-400 mt-1">手書きノート最後のページの事務連絡</p>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 border border-slate-800 space-y-6">
+                    
+                    <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-950 flex items-center justify-center text-indigo-400 text-xl font-bold">
+                            日時
+                        </div>
+                        <div>
+                            <div class="text-2xl font-black text-slate-100 accent-font tracking-wider">6/28 <span class="text-lg font-bold text-slate-400">(日)</span></div>
+                            <div class="text-sky-400 font-bold mt-1">12:00 〜 19:00</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 border-b border-slate-800 pb-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-950 flex items-center justify-center text-indigo-400 text-xl font-bold">
+                            場所
+                        </div>
+                        <div>
+                            <div class="text-lg font-bold text-slate-200">アズール 心斎橋</div>
+                            <div class="text-xs text-slate-500 mt-1">※車移動あり？</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-indigo-950 flex items-center justify-center text-indigo-400 text-xl font-bold shrink-0">
+                            持物
+                        </div>
+                        <div class="w-full">
+                            <ul class="space-y-3">
+                                <li class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-sky-500 rounded cursor-pointer">
+                                    <span class="font-bold text-slate-200 text-sm">身分証明書</span>
+                                </li>
+                                <li class="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center gap-3">
+                                    <input type="checkbox" class="w-5 h-5 accent-sky-500 rounded cursor-pointer">
+                                    <span class="font-bold text-slate-200 text-sm">キャッシュカード</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 4: REVIEW QUIZ ================= -->
+        <section id="tab-quiz" class="tab-content space-y-8 hidden">
+            
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-indigo-950">
+                <h2 class="text-xl font-bold text-slate-100 mb-2 flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-indigo-500 rounded-full"></span>
+                    学科講習 3 復習テスト
+                </h2>
+                <p class="text-slate-400 text-sm mb-6">減圧症や器材について、安全に関わる重要な5問を出題します！</p>
+
+                <!-- Game Container -->
+                <div class="max-w-xl mx-auto border border-slate-800 rounded-2xl p-6 bg-slate-900 relative">
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-800 h-2 rounded-full mb-6 overflow-hidden">
+                        <div id="quiz-progress" class="bg-indigo-500 h-full transition-all duration-300" style="width: 20%"></div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div id="quiz-box">
+                        <div class="flex items-center justify-between text-xs font-bold text-indigo-400 mb-2">
+                            <span id="quiz-category">潜水医学</span>
+                            <span id="quiz-number">第 1 問 / 全 5 問</span>
+                        </div>
+                        <h3 id="quiz-question" class="text-base md:text-lg font-bold text-slate-200 mb-6 leading-relaxed">
+                            質問文がここに表示されます。
+                        </h3>
+
+                        <!-- Choices -->
+                        <div class="space-y-3" id="quiz-choices">
+                            <!-- JS will inject buttons here -->
+                        </div>
+                    </div>
+
+                    <!-- Feedback Overlay -->
+                    <div id="quiz-feedback" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center p-6 text-center z-10 transition-all">
+                        <div id="feedback-icon" class="text-5xl mb-4">🎉</div>
+                        <h4 id="feedback-title" class="text-lg font-bold text-slate-200 mb-2">判定</h4>
+                        <p id="feedback-text" class="text-slate-300 text-xs md:text-sm mb-6 leading-relaxed">
+                            解説文がここに入ります。
+                        </p>
+                        <button onclick="nextQuestion()" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs md:text-sm transition-colors">
+                            次の問題へ
+                        </button>
+                    </div>
+
+                    <!-- Result Panel -->
+                    <div id="quiz-result" class="hidden text-center py-8">
+                        <div class="text-5xl mb-4">🏆</div>
+                        <h3 class="text-xl font-bold text-slate-200 mb-2">学科3 完全クリア！</h3>
+                        <p class="text-slate-400 text-xs md:text-sm mb-6 leading-relaxed">
+                            トラブルを防ぐ知識と器材の特性を完璧に理解しました！<br>
+                            いよいよ実践に近づいています。ブラックマンタやクジラを安全に撮るための基礎が完成しましたね。
+                        </p>
+                        <div class="flex gap-4 justify-center">
+                            <button onclick="restartQuiz()" class="px-5 py-2 border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold rounded-xl text-xs transition-colors">
+                                もう一度挑戦
+                            </button>
+                            <button onclick="switchTab('tab-medical')" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-colors">
+                                ノートに戻る
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Memory Flash Cards (Fixed Backface Visibility) -->
+            <div class="bg-slate-950 rounded-3xl p-6 shadow-2xl border border-indigo-950">
+                <h3 class="text-lg font-bold text-slate-100 mb-2">暗記フラッシュカード（タップで確認）</h3>
+                <p class="text-slate-400 text-xs mb-6">とっさに判断できるよう、最重要ワードを反復！</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div onclick="this.classList.toggle('flipped')" class="flip-card group h-44 cursor-pointer" style="perspective: 1000px;">
+                        <div class="flip-card-inner border border-slate-800 shadow-sm group-hover:shadow-md rounded-2xl">
+                            <!-- Front -->
+                            <div class="flip-card-front flex flex-col justify-between p-5 bg-slate-900">
+                                <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">減圧症予防の儀式</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">ダイビングの最後に行う「安全停止」は、水深何mで何分間？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back flex flex-col justify-between p-5 bg-indigo-950 text-white">
+                                <span class="text-[10px] font-bold text-indigo-300 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-2xl font-black">水深5m で 3分間</h4>
+                                    <p class="text-[11px] text-slate-300 mt-1">ここで留まることで、体内に溶け込んだ窒素を安全に呼吸として排出します。</p>
+                                </div>
+                                <span class="text-[10px] text-indigo-300 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="this.classList.toggle('flipped')" class="flip-card group h-44 cursor-pointer" style="perspective: 1000px;">
+                        <div class="flip-card-inner border border-slate-800 shadow-sm group-hover:shadow-md rounded-2xl">
+                            <!-- Front -->
+                            <div class="flip-card-front flex flex-col justify-between p-5 bg-slate-900">
+                                <span class="text-[10px] font-bold text-rose-400 uppercase tracking-wider">潜水後の絶対NG行動</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">ダイビング直後に「絶対に乗ってはいけない」乗り物は？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back flex flex-col justify-between p-5 bg-rose-950 text-white">
+                                <span class="text-[10px] font-bold text-rose-300 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-xl font-bold">飛行機 (高所移動)</h4>
+                                    <p class="text-[11px] text-rose-200 mt-1">上空で気圧が下がるため、体内の窒素が一気に気泡化し減圧症を発症します。</p>
+                                </div>
+                                <span class="text-[10px] text-rose-300 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="this.classList.toggle('flipped')" class="flip-card group h-44 cursor-pointer" style="perspective: 1000px;">
+                        <div class="flip-card-inner border border-slate-800 shadow-sm group-hover:shadow-md rounded-2xl">
+                            <!-- Front -->
+                            <div class="flip-card-front flex flex-col justify-between p-5 bg-slate-900">
+                                <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">タンク（シリンダー）特性</span>
+                                <h4 class="text-lg font-bold text-slate-200 mt-2">スチール製と比べて、「アルミ製」タンクの浮力の違いは？</h4>
+                                <span class="text-[10px] text-slate-500 text-right">タップしてめくる 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back flex flex-col justify-between p-5 bg-amber-950 text-white">
+                                <span class="text-[10px] font-bold text-amber-300 uppercase tracking-wider">答 え</span>
+                                <div class="text-center">
+                                    <h4 class="text-lg font-bold">アルミの方が「浮きやすい」</h4>
+                                    <p class="text-[11px] text-amber-200 mt-1">そのため、スチールタンクの時よりも体に巻くウエイト（鉛）を重く調整する必要があります。</p>
+                                </div>
+                                <span class="text-[10px] text-amber-300 text-right">戻る 🔄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 border-t border-indigo-950 py-10 px-4 mt-12">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+                <div class="flex items-center gap-2 text-white font-bold text-base">
+                    <span>👑 BSAC (The British Sub-Aqua Club)</span>
+                    <span class="text-xs bg-slate-800 text-slate-400 border border-slate-700 px-2 py-0.5 rounded">指導団体</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">理念は <strong>「Safety first（安全最優先）」</strong>。</p>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                    減圧症の恐ろしさと防ぎ方、自分の器材のコントロール。これらを学ぶことは、安全への一番の近道です。<br>
+                    万全の知識とスキルで、いつか夢のブラックマンタやクジラ、サメの大群を綺麗に撮影しましょう！
+                </p>
+            </div>
+            
+            <div class="text-xs text-slate-500 md:text-right">
+                <p>© 2026 Diving Study Note. Lesson 3 Completed.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Tab switching
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            document.getElementById(tabId).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 text-slate-400 hover:text-indigo-400 hover:bg-slate-900";
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.className = "tab-btn px-4 py-2 font-bold text-xs md:text-sm rounded-lg whitespace-nowrap transition-all duration-150 bg-indigo-600 text-white";
+        }
+
+        // --- Simulator Logic ---
+        function runSimFast() {
+            const diver = document.getElementById('sim-diver');
+            const bubbles = document.getElementById('danger-bubbles');
+            const statusBox = document.getElementById('sim-status-box');
+
+            // Reset
+            diver.className = "absolute bottom-4 left-1/2 -translate-x-1/2 text-4xl";
+            bubbles.classList.add('hidden');
+            
+            // Trigger reflow
+            void diver.offsetWidth;
+
+            // Start animation
+            diver.classList.add('anim-fast');
+            
+            statusBox.innerHTML = `
+                <div class="text-3xl mb-2">🚀</div>
+                <div class="text-rose-500 font-bold text-sm">危険：急浮上！</div>
+                <div class="text-[10px] text-slate-400 mt-1">水深15mから一気に水面へ...</div>
+            `;
+
+            setTimeout(() => {
+                bubbles.classList.remove('hidden');
+                statusBox.innerHTML = `
+                    <div class="text-3xl mb-2">💥</div>
+                    <div class="text-rose-500 font-bold text-sm">減圧症発生！</div>
+                    <div class="text-[10px] text-rose-300 mt-1">血中に溶けた窒素が一気に気泡化し血管を塞ぎました。大変危険です。</div>
+                `;
+            }, 1000);
+        }
+
+        function runSimSafety() {
+            const diver = document.getElementById('sim-diver');
+            const bubbles = document.getElementById('danger-bubbles');
+            const statusBox = document.getElementById('sim-status-box');
+
+            // Reset
+            diver.className = "absolute bottom-4 left-1/2 -translate-x-1/2 text-4xl";
+            bubbles.classList.add('hidden');
+            
+            // Trigger reflow
+            void diver.offsetWidth;
+
+            // Start animation
+            diver.classList.add('anim-safety');
+
+            statusBox.innerHTML = `
+                <div class="text-2xl mb-1">👍</div>
+                <div class="text-emerald-400 font-bold text-sm">ゆっくり浮上中...</div>
+            `;
+
+            setTimeout(() => {
+                statusBox.innerHTML = `
+                    <div class="text-2xl mb-1 animate-pulse">⏳</div>
+                    <div class="text-amber-400 font-bold text-sm">水深5mで安全停止中</div>
+                    <div class="text-[10px] text-slate-400 mt-1">ここで3分間待機し、窒素を抜きます...</div>
+                `;
+            }, 1200);
+
+            setTimeout(() => {
+                statusBox.innerHTML = `
+                    <div class="text-3xl mb-2">✅</div>
+                    <div class="text-emerald-500 font-bold text-sm">安全に浮上完了！</div>
+                    <div class="text-[10px] text-emerald-300 mt-1">窒素が安全に排出されました。これが減圧症を防ぐ正しい浮上です。</div>
+                `;
+            }, 4000);
+        }
+
+
+        // --- Quiz System ---
+        const quizData = [
+            {
+                category: "潜水医学",
+                question: "減圧症を防ぐため、ダイビングの最後に行う「安全停止」の正しい深度と時間は？",
+                choices: [
+                    "A. 水深 10m で 1分間",
+                    "B. 水深 5m で 3分間",
+                    "C. 水深 3m で 5分間"
+                ],
+                correct: 1,
+                explanation: "正解は「B. 水深5mで3分間」です！浮上前にこの停止を行うことで、体内に溶け込んだ窒素を安全に呼吸から排出し、減圧症の発症を防ぐことができます。"
+            },
+            {
+                category: "健康管理",
+                question: "ダイビング直後（同じ日）に「絶対にしてはいけない」移動はどれ？",
+                choices: [
+                    "A. 飛行機に乗る（高所への移動）",
+                    "B. 車で帰宅する",
+                    "C. 船で港に戻る"
+                ],
+                correct: 0,
+                explanation: "正解は「A. 飛行機に乗る」です！上空は気圧が低いため、ダイビング直後に飛行機に乗ると体内の窒素が一気に気泡化し、重篤な減圧症を引き起こすため絶対にNGです。"
+            },
+            {
+                category: "器材知識",
+                question: "マスクに必ず「スノーケル」を取り付けておくべき理由として、正しいものはどれ？",
+                choices: [
+                    "A. 深く潜った時に呼吸するため",
+                    "B. 水面移動時にタンクの空気を温存するため（付けないと保険が下りない事も）",
+                    "C. 水中で声を出して会話するため"
+                ],
+                correct: 1,
+                explanation: "正解は「B」です！ボート待ちなどの水面移動は意外と多く、レギュレーターを使うとタンクの空気が減ってしまいます。また安全装備の基準として保険適用に関わることもあります。"
+            },
+            {
+                category: "タンクの知識",
+                question: "「アルミ製」のタンク（シリンダー）の特徴として正しいものはどれ？",
+                choices: [
+                    "A. スチール製より重く沈みやすいので、ウエイトは軽くする",
+                    "B. 底が丸いので立てるためのゴムブーツが必要",
+                    "C. スチール製よりも浮力が強い（浮きやすい）ため、ウエイトを重めにする必要がある"
+                ],
+                correct: 2,
+                explanation: "正解は「C」です！アルミタンクは底が平らで自立しますが、水中での浮力が強いため、スチールタンクの時よりも体に巻くウエイト（重り）を増やして相殺する必要があります。"
+            },
+            {
+                category: "マイ器材の重要性",
+                question: "「自分の器材（マイ器材）」を持つことが安全に繋がると言われる最大の理由は？",
+                choices: [
+                    "A. 海の中で他のダイバーからかっこよく見られるから",
+                    "B. BCDによって操作や空気の抜け方が違うため、同じ器材に「慣れる」ことが急浮上防止に直結するから",
+                    "C. レンタルするより荷物が軽くなるから"
+                ],
+                correct: 1,
+                explanation: "正解は「B」です！減圧症を防ぐには急浮上を避けることが必須ですが、BCDの操作感はメーカーによって異なります。自分の器材で目をつぶっていても操作できるほど慣れることが、一番の安全対策になります。"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function updateQuizUI() {
+            const currentQuiz = quizData[currentQuestionIndex];
+            
+            // Progress Bar
+            const progressPercent = ((currentQuestionIndex) / quizData.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+
+            // Text
+            document.getElementById('quiz-category').innerText = currentQuiz.category;
+            document.getElementById('quiz-number').innerText = `第 ${currentQuestionIndex + 1} 問 / 全 ${quizData.length} 問`;
+            document.getElementById('quiz-question').innerText = currentQuiz.question;
+
+            // Choices
+            const choicesContainer = document.getElementById('quiz-choices');
+            choicesContainer.innerHTML = '';
+            currentQuiz.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.onclick = () => checkAnswer(index);
+                button.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-950 hover:border-indigo-500 hover:bg-slate-900 transition-all font-medium text-slate-300 text-xs md:text-sm";
+                button.innerText = choice;
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const currentQuiz = quizData[currentQuestionIndex];
+            const feedbackOverlay = document.getElementById('quiz-feedback');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+
+            if (selectedIndex === currentQuiz.correct) {
+                feedbackIcon.innerText = "🎉";
+                feedbackTitle.innerText = "正解です！";
+                feedbackTitle.className = "text-xl font-bold text-emerald-400 mb-2";
+            } else {
+                feedbackIcon.innerText = "💡";
+                feedbackTitle.innerText = "復習のポイント！";
+                feedbackTitle.className = "text-xl font-bold text-amber-400 mb-2";
+            }
+
+            feedbackText.innerText = currentQuiz.explanation;
+            feedbackOverlay.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                updateQuizUI();
+            } else {
+                // Done all questions
+                document.getElementById('quiz-progress').style.width = `100%`;
+                document.getElementById('quiz-box').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            updateQuizUI();
+        }
+
+        // Initialize quiz on load
+        window.onload = function() {
+            updateQuizUI();
+        }
+    </script>
+</body>
+</html>
